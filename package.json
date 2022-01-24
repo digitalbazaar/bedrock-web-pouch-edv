@@ -1,17 +1,41 @@
 {
-  "name": "bedrock-module-template-http",
+  "name": "bedrock-web-pouch-edv",
   "version": "0.0.1-0",
-  "description": "Bedrock HTTP API",
-  "main": "./lib",
+  "description": "PouchDB EDV Storage",
+  "module": "./lib/main.js",
   "scripts": {
     "lint": "eslint ."
   },
+  "dependencies": {
+    "@digitalbazaar/lru-memoize": "^2.1.0",
+    "esm": "^3.2.25"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-digitalbazaar": "^2.6.1",
+    "eslint-plugin-jsdoc": "^28.6.1",
+    "jsdoc": "^3.6.4",
+    "jsdoc-to-markdown": "^6.0.1"
+  },
+  "peerDependencies": {
+    "bedrock-web": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib/*"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalbazaar/bedrock-module-template-http"
+    "url": "https://github.com/digitalbazaar/bedrock-web-pouch-edv"
   },
   "keywords": [
-    "bedrock"
+    "bedrock",
+    "pouchdb",
+    "edv",
+    "encrypted data vault",
+    "web"
   ],
   "author": {
     "name": "Digital Bazaar, Inc.",
@@ -19,24 +43,7 @@
     "url": "https://digitalbazaar.com"
   },
   "bugs": {
-    "url": "https://github.com/digitalbazaar/bedrock-module-template-http/issues"
+    "url": "https://github.com/digitalbazaar/bedrock-pouch-edv/issues"
   },
-  "homepage": "https://github.com/digitalbazaar/bedrock-module-template-http",
-  "dependencies": {
-    "esm": "^3.2.25"
-  },
-  "peerDependencies": {
-    "bedrock": "^4.1.1",
-    "bedrock-express": "^3.2.0"
-  },
-  "directories": {
-    "lib": "./lib"
-  },
-  "devDependencies": {
-    "eslint": "^7.14.0",
-    "eslint-config-digitalbazaar": "^2.6.1"
-  },
-  "engines": {
-    "node": ">=12"
-  }
+  "homepage": "https://github.com/digitalbazaar/bedrock-pouch-edv"
 }
