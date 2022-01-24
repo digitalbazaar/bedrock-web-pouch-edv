@@ -1,4 +1,4 @@
-# bedrock-module-template-http ChangeLog
+# bedrock-web-pouch-edv ChangeLog
 
 ## 1.0.0 - TBD
 
