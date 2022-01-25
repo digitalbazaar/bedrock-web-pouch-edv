@@ -5,7 +5,6 @@
 
 const bedrock = require('bedrock');
 require('bedrock-https-agent');
-require('bedrock-mongodb');
 require('bedrock-test');
 require('bedrock-karma');
 
