@@ -98,5 +98,67 @@ describe('edvs API', function() {
       result.config.should.have.keys(
         ['id', 'controller', 'sequence', 'hmac', 'keyAgreementKey']);
     });
+    it('should fail due to duplicate config', async () => {
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      await edvs.insert({config});
+
+      // insert same config again
+      let error;
+      try {
+        await edvs.insert({config});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('ConstraintError');
+      error.message.should.equal(
+        'Could not insert document; uniqueness constraint violation.');
+    });
+  });
+
+  describe('update', () => {
+    it('should fail due to bad sequence', async () => {
+      // first insert config
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      const record = await edvs.insert({config});
+
+      // then update config w/o updating sequence
+      let error;
+      try {
+        await edvs.update({config: record.config});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('InvalidStateError');
+      error.message.should.equal(
+        'Could not update configuration. Sequence does not match or ' +
+        'configuration does not exist.');
+    });
+    it('should pass', async () => {
+      // first insert config
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      const record = await edvs.insert({config});
+
+      // then update config
+      const newConfig = {...record.config};
+      newConfig.sequence++;
+      const result = await edvs.update({config: newConfig});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['_id', '_rev', 'config']);
+      should.exist(result.config);
+      result.config.should.have.keys(
+        ['id', 'controller', 'sequence', 'hmac', 'keyAgreementKey']);
+    });
   });
 });
