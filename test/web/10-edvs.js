@@ -1,13 +1,14 @@
 /*!
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
-import {initialize, edvs, generateLocalId} from 'bedrock-web-pouch-edv';
+import {edvs, generateLocalId, initialize} from 'bedrock-web-pouch-edv';
 import {mock} from './mock.js';
 
 describe('edvs API', function() {
   before(async () => {
     await initialize();
   });
+
   describe('insert', () => {
     it('should fail "config.id" assertion', async () => {
       const config = {
