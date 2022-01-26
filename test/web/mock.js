@@ -165,3 +165,33 @@ mock.docWithUniqueAttributes2 = {
     tag: 'pfZO0JulJcrc3trOZy8rjA'
   }
 };
+
+mock.chunk = {
+  sequence: 0,
+  index: 0,
+  offset: 50,
+  jwe: {
+    protected: 'eyJlbmMiOiJYQzIwUCJ9',
+    recipients: [
+      {
+        header: {
+          alg: 'ECDH-ES+A256KW',
+          kid: 'urn:keyAgreementKey',
+          epk: {
+            kty: 'OKP',
+            crv: 'X25519',
+            x: 'ev3MBTNmIQwWsILAREvOMkGo9RZ-Bp0NZmkno9dno0Q'
+          },
+          apu: 'ev3MBTNmIQwWsILAREvOMkGo9RZ-Bp0NZmkno9dno0Q',
+          // eslint-disable-next-line max-len
+          apv: 'ZGlkOmtleTp6Nk1rajVFS1BNVzZpYmJoeVA1ZHE2TmplbVF3NnJXM1gyeGFyRHhyWVYyZHppQjkjejZMU2VyWmVXN1V5cmFzbktLOTdldER5Mnp4ZTRtZkFRRlRrQ1RTcXFWc1FEUjdK'
+        },
+        encrypted_key: 'nty5cWPhIlHJUbdbHN7IAlaVzUo9-pxlf3lq4OE9jqzf7lA0VByltg'
+      }
+    ],
+    iv: 'pu_NyyiQ0ZQG-RCpwrgZgHL6P4CUSuYN',
+    // eslint-disable-next-line max-len
+    ciphertext: '6rUTYWGaUyg1dp32NR0MwaikovIjNIaUy511IqAGEl4_xunzZDTy_IPzpenf2j3_OJg',
+    tag: 'vnKPGqBKs4wx_Mlfkzz7EA'
+  }
+};
