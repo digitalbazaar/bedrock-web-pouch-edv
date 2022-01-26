@@ -161,4 +161,42 @@ describe('edvs API', function() {
         ['id', 'controller', 'sequence', 'hmac', 'keyAgreementKey']);
     });
   });
+
+  describe('get', () => {
+    it('should fail "id" assertion', async () => {
+      let error;
+      try {
+        await edvs.get({id: false});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('TypeError');
+      error.message.should.equal('"id" must be a string.');
+    });
+    it('should fail due to not found error', async () => {
+      // get non-existent config
+      let error;
+      try {
+        await edvs.get({id: 'not found'});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('NotFoundError');
+      error.message.should.equal('Configuration not found.');
+    });
+    it('should pass', async () => {
+      // first insert config
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      const inserted = await edvs.insert({config});
+
+      // then get config
+      const record = await edvs.get({id: config.id});
+      record.should.eql(inserted);
+    });
+  });
 });
