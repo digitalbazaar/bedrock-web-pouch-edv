@@ -141,6 +141,24 @@ describe('edvs API', function() {
         'Could not update configuration. Sequence does not match or ' +
         'configuration does not exist.');
     });
+    it('should fail due to not found', async () => {
+      // update non-existent config
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      let error;
+      try {
+        await edvs.update({config});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('InvalidStateError');
+      error.message.should.equal(
+        'Could not update configuration. Sequence does not match or ' +
+        'configuration does not exist.');
+    });
     it('should pass', async () => {
       // first insert config
       const config = {
