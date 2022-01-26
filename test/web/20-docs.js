@@ -8,6 +8,8 @@ describe('docs API', function() {
   let edvId;
   before(async () => {
     await initialize();
+  });
+  beforeEach(async () => {
     const config = {
       ...mock.config,
       id: await generateLocalId()
@@ -74,7 +76,7 @@ describe('docs API', function() {
       should.exist(result.doc);
       result.doc.should.have.keys(['id', 'sequence', 'jwe']);
     });
-    it('should fail due to duplicate doc', async () => {
+    it('should fail due to duplicate doc ID', async () => {
       const doc = {
         ...mock.doc,
         id: await generateLocalId()
@@ -93,9 +95,52 @@ describe('docs API', function() {
       error.message.should.equal(
         'Could not insert document; uniqueness constraint violation.');
     });
+    it('should fail due to duplicate unique attribute', async () => {
+      const doc = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      await docs.insert({edvId, doc});
+
+      // insert different doc with same attribute
+      const doc2 = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      let error;
+      try {
+        await docs.insert({edvId, doc: doc2});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('ConstraintError');
+      error.message.should.equal(
+        'Could not insert document; uniqueness constraint violation.');
+    });
+    it('should pass with non-conflicting attribute', async () => {
+      const doc = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      const inserted1 = await docs.insert({edvId, doc});
+
+      // insert different doc with different value for unique attributes
+      // but same value for non-unique attribute (should be legal)
+      const doc2 = {
+        ...mock.docWithUniqueAttributes2,
+        id: await generateLocalId()
+      };
+      const inserted2 = await docs.insert({edvId, doc: doc2});
+
+      const record1 = await docs.get({edvId, id: doc.id});
+      record1.should.eql(inserted1);
+      const record2 = await docs.get({edvId, id: doc2.id});
+      record2.should.eql(inserted2);
+    });
   });
 
-  describe('update', () => {
+  describe('upsert', () => {
     it('should fail due to bad sequence', async () => {
       // first insert doc
       const doc = {
@@ -146,6 +191,82 @@ describe('docs API', function() {
       result.should.have.keys(['_id', '_rev', 'doc', 'localEdvId']);
       should.exist(result.doc);
       result.doc.should.have.keys(['id', 'sequence', 'jwe']);
+    });
+    it('should fail due to duplicate unique attribute', async () => {
+      const doc = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      await docs.upsert({edvId, doc});
+
+      // upsert different doc with same attribute
+      const doc2 = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      let error;
+      try {
+        await docs.upsert({edvId, doc: doc2});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('ConstraintError');
+      error.message.should.equal(
+        'Could not insert document; uniqueness constraint violation.');
+    });
+    it('should pass with non-conflicting attribute', async () => {
+      const doc = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      const inserted1 = await docs.upsert({edvId, doc});
+
+      // upsert different doc with different value for unique attributes
+      // but same value for non-unique attribute (should be legal)
+      const doc2 = {
+        ...mock.docWithUniqueAttributes2,
+        id: await generateLocalId()
+      };
+      const inserted2 = await docs.upsert({edvId, doc: doc2});
+
+      const record1 = await docs.get({edvId, id: doc.id});
+      record1.should.eql(inserted1);
+      const record2 = await docs.get({edvId, id: doc2.id});
+      record2.should.eql(inserted2);
+    });
+    it('should fail due to change to duplicate unique attribute', async () => {
+      const doc = {
+        ...mock.docWithUniqueAttributes,
+        id: await generateLocalId()
+      };
+      await docs.upsert({edvId, doc});
+
+      // upsert different doc with different value for unique attributes
+      // but same value for non-unique attribute (should be legal)
+      let doc2 = {
+        ...mock.docWithUniqueAttributes2,
+        id: await generateLocalId()
+      };
+      await docs.upsert({edvId, doc: doc2});
+
+      // now should fail when trying to change `doc2` to have the same
+      // unique attribute as `doc1`
+      doc2 = {
+        ...mock.docWithUniqueAttributes,
+        id: doc2.id,
+        sequence: 1
+      };
+      let error;
+      try {
+        await docs.upsert({edvId, doc: doc2});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('ConstraintError');
+      error.message.should.equal(
+        'Could not update document; uniqueness constraint violation.');
     });
   });
 

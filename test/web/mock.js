@@ -146,7 +146,7 @@ mock.docWithUniqueAttributes2 = {
       unique: true
     }, {
       name: 'DUQaxPtSLtd8L3WBAIkJ4DiVJeqoF6bdnhR7lSaPloZ',
-      // same as `mock.docWithAttributes` but not unique, so permitted
+      // same as `mock.docWithUniqueAttributes` but not unique, so permitted
       value: 'QV58Va4904K-18_L5g_vfARXRWEB00knFSGPpukUBro'
     }]
   }],
