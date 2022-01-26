@@ -308,7 +308,7 @@ describe('docs API', function() {
         'multihash array of 16 random bytes.');
     });
     it('should fail due to not found error', async () => {
-      // get non-existent config
+      // get non-existent doc
       let error;
       try {
         await docs.get({edvId, id: 'z19pjdSMQMkBqqJ5zsbbgbbbb'});
