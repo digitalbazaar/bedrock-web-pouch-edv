@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
-import {initialize, edvs, docs, generateLocalId} from 'bedrock-web-pouch-edv';
+import {docs, edvs, generateLocalId, initialize} from 'bedrock-web-pouch-edv';
 import {mock} from './mock.js';
 
 describe('docs API', function() {
@@ -17,6 +17,7 @@ describe('docs API', function() {
     const record = await edvs.insert({config});
     edvId = record.config.id;
   });
+
   describe('insert', () => {
     it('should fail "edvId" assertion', async () => {
       const doc = {
