@@ -430,7 +430,7 @@ describe('docs API', function() {
       doc3.indexed[0].attributes[0].value = 'different';
       await docs.insert({edvId, doc: doc3});
 
-      // then find both docs at once
+      // then find 2 docs out of 3
       const entry = doc1.indexed[0];
       const [attribute] = entry.attributes;
       const query = docs.createQuery({
@@ -453,6 +453,46 @@ describe('docs API', function() {
       result.records.map(({doc: {id}}) => id).should.include.members([
         doc1.id, doc2.id
       ]);
+    });
+    it('should get no documents', async () => {
+      // insert 3 docs, each with different attribute values, find none
+      const doc1 = {
+        ...mock.docWithAttributes,
+        id: await generateLocalId()
+      };
+      await docs.insert({edvId, doc: doc1});
+
+      // must deep copy to change attributes
+      const doc2 = JSON.parse(JSON.stringify(mock.docWithAttributes));
+      doc2.id = await generateLocalId();
+      doc2.indexed[0].attributes[0].value = 'match';
+      await docs.insert({edvId, doc: doc2});
+
+      // must deep copy to change attributes
+      const doc3 = JSON.parse(JSON.stringify(mock.docWithAttributes));
+      doc3.id = await generateLocalId();
+      doc3.indexed[0].attributes[0].value = 'different';
+      await docs.insert({edvId, doc: doc3});
+
+      // then find no matching docs
+      const entry = doc1.indexed[0];
+      const [attribute] = entry.attributes;
+      const query = docs.createQuery({
+        edvId,
+        edvQuery: {
+          index: entry.hmac.id,
+          equals: [
+            {[attribute.name]: 'nomatches'}
+          ]
+        }
+      });
+      const result = await docs.find({edvId, query});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['records']);
+      should.exist(result.records);
+      result.records.should.be.an('array');
+      result.records.length.should.equal(0);
     });
   });
 });
