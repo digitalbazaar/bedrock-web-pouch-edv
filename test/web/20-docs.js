@@ -352,4 +352,107 @@ describe('docs API', function() {
       record.should.eql(inserted);
     });
   });
+
+  describe('find', () => {
+    it('should get a document by attribute', async () => {
+      // first insert doc
+      const doc = {
+        ...mock.docWithAttributes,
+        id: await generateLocalId()
+      };
+      const inserted = await docs.insert({edvId, doc});
+
+      // then find doc
+      const entry = doc.indexed[0];
+      const [attribute] = entry.attributes;
+      const query = docs.createQuery({
+        edvId,
+        edvQuery: {
+          index: entry.hmac.id,
+          has: [attribute.name]
+        }
+      });
+      const result = await docs.find({edvId, query});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['records']);
+      should.exist(result.records);
+      result.records.should.be.an('array');
+      result.records.length.should.equal(1);
+      should.exist(result.records[0]);
+      result.records[0].should.eql(inserted);
+    });
+    it('should get a document by attribute and value', async () => {
+      // first insert doc
+      const doc = {
+        ...mock.docWithAttributes,
+        id: await generateLocalId()
+      };
+      const inserted = await docs.insert({edvId, doc});
+
+      // then find doc
+      const entry = doc.indexed[0];
+      const [attribute] = entry.attributes;
+      const query = docs.createQuery({
+        edvId,
+        edvQuery: {
+          index: entry.hmac.id,
+          equals: [{[attribute.name]: attribute.value}]
+        }
+      });
+      const result = await docs.find({edvId, query});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['records']);
+      should.exist(result.records);
+      result.records.should.be.an('array');
+      result.records.length.should.equal(1);
+      should.exist(result.records[0]);
+      result.records[0].should.eql(inserted);
+    });
+    it('should get documents by attribute and value', async () => {
+      // insert 3 docs, each with different attribute values, find only 2
+      const doc1 = {
+        ...mock.docWithAttributes,
+        id: await generateLocalId()
+      };
+      await docs.insert({edvId, doc: doc1});
+
+      // must deep copy to change attributes
+      const doc2 = JSON.parse(JSON.stringify(mock.docWithAttributes));
+      doc2.id = await generateLocalId();
+      doc2.indexed[0].attributes[0].value = 'match';
+      await docs.insert({edvId, doc: doc2});
+
+      // must deep copy to change attributes
+      const doc3 = JSON.parse(JSON.stringify(mock.docWithAttributes));
+      doc3.id = await generateLocalId();
+      doc3.indexed[0].attributes[0].value = 'different';
+      await docs.insert({edvId, doc: doc3});
+
+      // then find both docs at once
+      const entry = doc1.indexed[0];
+      const [attribute] = entry.attributes;
+      const query = docs.createQuery({
+        edvId,
+        edvQuery: {
+          index: entry.hmac.id,
+          equals: [
+            {[attribute.name]: attribute.value},
+            {[attribute.name]: doc2.indexed[0].attributes[0].value}
+          ]
+        }
+      });
+      const result = await docs.find({edvId, query});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['records']);
+      should.exist(result.records);
+      result.records.should.be.an('array');
+      result.records.length.should.equal(2);
+      result.records.map(({doc: {id}}) => id).should.include.members([
+        doc1.id, doc2.id
+      ]);
+    });
+  });
 });
