@@ -4,7 +4,6 @@
 'use strict';
 
 const bedrock = require('bedrock');
-require('bedrock-https-agent');
 require('bedrock-test');
 require('bedrock-karma');
 
