@@ -13,7 +13,6 @@
     "bedrock-https-agent": "^2.0.0",
     "bedrock-karma": "^2.1.0",
     "bedrock-test": "^5.3.2",
-    "bedrock-web": "^1.2.0",
     "bedrock-web-pouch-edv": "file:..",
     "cross-env": "^7.0.3",
     "nyc": "^15.1.0"
