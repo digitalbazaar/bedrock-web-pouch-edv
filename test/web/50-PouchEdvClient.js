@@ -373,4 +373,34 @@ describe('PouchEdvClient API', function() {
       result.sequence.should.equal(0);
     });
   });
+
+  describe('delete', () => {
+    let edvClient;
+    beforeEach(async () => {
+      const password = 'pw';
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      delete config.hmac;
+      delete config.keyAgreementKey;
+      const result = await PouchEdvClient.createEdv({config, password});
+      edvClient = result.edvClient;
+    });
+    it('should pass', async () => {
+      // first insert
+      const doc = {
+        id: await PouchEdvClient.generateId(),
+        content: {},
+        meta: {},
+        sequence: 0
+      };
+      await edvClient.insert({doc});
+
+      // then delete document
+      const result = await edvClient.delete({doc});
+      should.exist(result);
+      result.should.equal(true);
+    });
+  });
 });
