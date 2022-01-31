@@ -315,6 +315,208 @@ describe('PouchEdvClient API', function() {
       result.id.should.equal(doc.id);
       result.sequence.should.equal(1);
     });
+    it('should fail due to duplicate unique attribute', async () => {
+      await edvClient.ensureIndex({attribute: 'content.id', unique: true});
+
+      const doc = {
+        id: await generateLocalId(),
+        content: {id: 'foo'}
+      };
+      await edvClient.update({doc});
+
+      // upsert different doc with same attribute
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {id: 'foo'}
+      };
+      let error;
+      try {
+        await edvClient.update({doc: doc2});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('DuplicateError');
+    });
+    it('should pass with non-conflicting attribute', async () => {
+      await edvClient.ensureIndex({attribute: 'content.id', unique: true});
+
+      const doc = {
+        id: await generateLocalId(),
+        content: {id: 'foo', bar: 'baz'}
+      };
+      const inserted1 = await edvClient.update({doc});
+
+      // upsert different doc with different value for unique attributes
+      // but same value for non-unique attribute (should be legal)
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {id: 'different', bar: 'baz'}
+      };
+      const inserted2 = await edvClient.update({doc: doc2});
+
+      const getDoc1 = await edvClient.get({id: doc.id});
+      getDoc1.should.eql(inserted1);
+      const getDoc2 = await edvClient.get({id: doc2.id});
+      getDoc2.should.eql(inserted2);
+    });
+    it('should fail due to change to duplicate unique attribute', async () => {
+      await edvClient.ensureIndex({attribute: 'content.id', unique: true});
+
+      const doc = {
+        id: await generateLocalId(),
+        content: {id: 'foo', bar: 'baz'}
+      };
+      await edvClient.update({doc});
+
+      // upsert different doc with different value for unique attributes
+      // but same value for non-unique attribute (should be legal)
+      let doc2 = {
+        id: await generateLocalId(),
+        content: {id: 'different', bar: 'baz'}
+      };
+      await edvClient.update({doc: doc2});
+
+      // now should fail when trying to change `doc2` to have the same
+      // unique attribute as `doc1`
+      doc2 = {
+        id: doc2.id,
+        content: {...doc.content},
+        sequence: 1
+      };
+      let error;
+      try {
+        await edvClient.update({doc: doc2});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('DuplicateError');
+    });
+  });
+
+  describe('find', () => {
+    let edvClient;
+    beforeEach(async () => {
+      const password = 'pw';
+      const config = {
+        ...mock.config,
+        id: await generateLocalId()
+      };
+      delete config.hmac;
+      delete config.keyAgreementKey;
+      const result = await PouchEdvClient.createEdv({config, password});
+      edvClient = result.edvClient;
+    });
+    it('should get a document by attribute', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      // first insert doc
+      const doc = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      const inserted = await edvClient.insert({doc});
+
+      // then find doc
+      const result = await edvClient.find({has: 'content.foo'});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(1);
+      should.exist(result.documents[0]);
+      result.documents[0].should.eql(inserted);
+    });
+    it('should get a document by attribute and value', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      // first insert doc
+      const doc = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      const inserted = await edvClient.insert({doc});
+
+      // then find doc
+      const result = await edvClient.find({equals: {'content.foo': 'bar'}});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(1);
+      should.exist(result.documents[0]);
+      result.documents[0].should.eql(inserted);
+    });
+    it('should get documents by attribute and value', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      // insert 3 docs, each with different attribute values, find only 2
+      const doc1 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc1});
+
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc2});
+
+      const doc3 = {
+        id: await generateLocalId(),
+        content: {foo: 'different'}
+      };
+      await edvClient.insert({doc: doc3});
+
+      // then find 2 docs out of 3
+      const result = await edvClient.find({equals: {'content.foo': 'bar'}});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(2);
+      result.documents.map(({id}) => id).should.include.members([
+        doc1.id, doc2.id
+      ]);
+    });
+    it('should get no documents', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      // insert 3 docs, each with different attribute values, find none
+      const doc1 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc1});
+
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc2});
+
+      const doc3 = {
+        id: await generateLocalId(),
+        content: {foo: 'different'}
+      };
+      await edvClient.insert({doc: doc3});
+
+      // then find no matching docs
+      const result = await edvClient.find({
+        equals: {'content.foo': 'nomatches'}
+      });
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(0);
+    });
   });
 
   describe('get', () => {
