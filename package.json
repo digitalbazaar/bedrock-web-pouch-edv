@@ -7,8 +7,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digitalbazaar/edv-client": "^11.0.0",
-    "@digitalbazaar/lru-memoize": "^2.1.0",
+    "@digitalbazaar/edv-client": "^11.1.1",
     "base58-universal": "^1.0.0",
     "pouchdb": "^7.2.2",
     "pouchdb-find": "^7.2.2"
@@ -20,9 +19,6 @@
     "jsdoc": "^3.6.4",
     "jsdoc-to-markdown": "^6.0.1",
     "pouchdb-debug": "^7.2.1"
-  },
-  "peerDependencies": {
-    "bedrock-web": "^1.2.0"
   },
   "engines": {
     "node": ">=12"
