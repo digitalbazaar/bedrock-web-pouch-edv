@@ -2,7 +2,6 @@
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
 import {secrets, generateLocalId, initialize} from 'bedrock-web-pouch-edv';
-import {mock} from './mock.js';
 
 describe('secrets API', function() {
   before(async () => {
@@ -55,6 +54,93 @@ describe('secrets API', function() {
         ['id', 'hmacId', 'keyAgreementKeyId', 'secret', 'sequence']);
       should.exist(result.config.secret);
       result.config.secret.should.have.keys(['version', 'salt', 'wrappedKey']);
+    });
+  });
+
+  describe('decrypt', () => {
+    it('should fail "config.id" assertion', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      config.id = false;
+      let error;
+      try {
+        await secrets.decrypt({config, password});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('TypeError');
+      error.message.should.equal('"config.id" must be a string.');
+    });
+    it('should fail "config.sequence" assertion', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      config.sequence = false;
+      let error;
+      try {
+        await secrets.decrypt({config, password});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('TypeError');
+      error.message.should.equal(
+        '"config.sequence" must be a non-negative safe integer.');
+    });
+    it('should fail "config.hmacId" assertion', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      config.hmacId = false;
+      let error;
+      try {
+        await secrets.decrypt({config, password});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('TypeError');
+      error.message.should.equal('"config.hmacId" must be a string.');
+    });
+    it('should fail "config.keyAgreementKeyId" assertion', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      config.keyAgreementKeyId = false;
+      let error;
+      try {
+        await secrets.decrypt({config, password});
+      } catch(e) {
+        error = e;
+      }
+      should.exist(error);
+      error.name.should.equal('TypeError');
+      error.message.should.equal(
+        '"config.keyAgreementKeyId" must be a string.');
+    });
+    it('should fail due to invalid password', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      const result = await secrets.decrypt({config, password: 'invalid'});
+      should.equal(result, null);
+    });
+    it('should pass', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password
+      });
+      const result = await secrets.decrypt({config, password});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['hmac', 'keyAgreementKey']);
     });
   });
 
