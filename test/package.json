@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "test": "node --preserve-symlinks test.js test --framework karma",
+    "test-karma": "node --preserve-symlinks test.js test --framework karma",
     "debug": "node --preserve-symlinks test.js test --framework karma --log-level debug",
     "coverage-ci": "node --preserve-symlinks test.js test --framework karma",
     "coverage-report": "nyc report"
