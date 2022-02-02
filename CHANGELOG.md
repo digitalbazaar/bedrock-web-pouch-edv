@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 1.0.1 - 2022-02-xx
+## 1.0.1 - 2022-02-02
 
 ### Changed
 - Update dependencies.
