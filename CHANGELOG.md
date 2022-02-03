@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 1.1.0 - 2022-02-xx
+## 1.1.0 - 2022-02-03
 
 ### Added
 - Automatically initialize databases when using
