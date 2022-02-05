@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 1.2.0 - 2022-02-xx
+## 1.2.0 - 2022-02-05
 
 ### Added
 - Add support for `limit` in EDV queries.
