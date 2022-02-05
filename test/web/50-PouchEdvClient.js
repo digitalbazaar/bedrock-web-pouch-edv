@@ -484,6 +484,67 @@ describe('PouchEdvClient API', function() {
         doc1.id, doc2.id
       ]);
     });
+    it('should get documents w/limit', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      const doc1 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc1});
+
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc2});
+
+      // limit results to just 1 of the 2 docs
+      const result = await edvClient.find({
+        equals: {'content.foo': 'bar'},
+        limit: 1
+      });
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents', 'hasMore']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(1);
+      should.exist(result.hasMore);
+      result.hasMore.should.equal(true);
+    });
+    it('should get documents w/limit and hasMore=false', async () => {
+      await edvClient.ensureIndex({attribute: 'content.foo'});
+
+      const doc1 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc1});
+
+      const doc2 = {
+        id: await generateLocalId(),
+        content: {foo: 'bar'}
+      };
+      await edvClient.insert({doc: doc2});
+
+      // limit results to just 1 of the 2 docs
+      const result = await edvClient.find({
+        equals: {'content.foo': 'bar'},
+        limit: 2
+      });
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['documents', 'hasMore']);
+      should.exist(result.documents);
+      result.documents.should.be.an('array');
+      result.documents.length.should.equal(2);
+      result.documents.map(({id}) => id).should.include.members([
+        doc1.id, doc2.id
+      ]);
+      should.exist(result.hasMore);
+      result.hasMore.should.equal(false);
+    });
     it('should get no documents', async () => {
       await edvClient.ensureIndex({attribute: 'content.foo'});
 
