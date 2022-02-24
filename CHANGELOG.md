@@ -1,5 +1,12 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 2.0.0 - 2022-02-xx
+
+### Changed
+- **BREAKING**: Use `@digitalbazaar/edv-client@12`. This new version
+  produces encrypted indexes differently (more privacy preserving)
+  and is incompatible with the previous version.
+
 ## 1.2.0 - 2022-02-05
 
 ### Added
