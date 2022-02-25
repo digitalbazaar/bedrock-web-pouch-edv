@@ -1,6 +1,6 @@
 {
   "name": "bedrock-web-pouch-edv",
-  "version": "2.0.1-0",
+  "version": "2.0.1",
   "description": "PouchDB EDV Storage",
   "module": "./lib/main.js",
   "scripts": {
