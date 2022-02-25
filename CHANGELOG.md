@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 2.0.1 - TBD
+## 2.0.1 - 2022-02-24
 
 ### Fixed
 - Provide alternative to `crypto.randomUUID` via `uuid` package.
