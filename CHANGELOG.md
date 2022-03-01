@@ -1,5 +1,10 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 3.0.0 - 2022-03-xx
+
+### Changed
+- **BREAKING**: Use `@digitalbazaar/edv-client@13`.
+
 ## 2.0.1 - 2022-02-24
 
 ### Fixed
