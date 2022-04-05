@@ -3,7 +3,7 @@
  */
 import {
   generateLocalId, initialize, PouchEdvClient, secrets
-} from 'bedrock-web-pouch-edv';
+} from '@bedrock/web-pouch-edv';
 import {mock} from './mock.js';
 
 describe('PouchEdvClient API', function() {

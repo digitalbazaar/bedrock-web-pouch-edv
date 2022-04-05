@@ -1,29 +1,19 @@
 {
   "name": "bedrock-web-pouch-edv-test",
   "version": "0.0.1-0",
+  "type": "module",
   "private": true,
   "scripts": {
     "test": "node --preserve-symlinks test.js test --framework karma",
     "test-karma": "node --preserve-symlinks test.js test --framework karma",
     "debug": "node --preserve-symlinks test.js test --framework karma --log-level debug",
-    "coverage-ci": "node --preserve-symlinks test.js test --framework karma",
-    "coverage-report": "nyc report"
+    "coverage": "node --preserve-symlinks test.js test --framework karma --config ./node_modules/@bedrock/karma/lib/coverageConfig.js",
+    "coverage-ci": "node --preserve-symlinks test.js test --framework karma --config ./node_modules/@bedrock/karma/lib/coverageConfig.js"
   },
   "dependencies": {
-    "bedrock": "^4.5.0",
-    "bedrock-karma": "^2.3.0",
-    "bedrock-test": "^6.1.0",
-    "bedrock-web-pouch-edv": "file:..",
-    "cross-env": "^7.0.3",
-    "nyc": "^15.1.0"
-  },
-  "nyc": {
-    "excludeNodeModules": false,
-    "include": [
-      "node_modules/bedrock-web-pouch-edv/**"
-    ],
-    "exclude": [
-      "node_modules/bedrock-web-pouch-edv/node_modules/**"
-    ]
+    "@bedrock/core": "^5.0.0",
+    "@bedrock/karma": "^3.1.0",
+    "@bedrock/test": "^7.0.0",
+    "@bedrock/web-pouch-edv": "file:.."
   }
 }

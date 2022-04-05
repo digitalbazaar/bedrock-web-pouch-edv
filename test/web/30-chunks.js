@@ -3,7 +3,7 @@
  */
 import {
   chunks, docs, edvs, generateLocalId, initialize
-} from 'bedrock-web-pouch-edv';
+} from '@bedrock/web-pouch-edv';
 import {mock} from './mock.js';
 
 describe('chunks API', function() {
