@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
-import {docs, edvs, generateLocalId, initialize} from 'bedrock-web-pouch-edv';
+import {docs, edvs, generateLocalId, initialize} from '@bedrock/web-pouch-edv';
 import {mock} from './mock.js';
 
 describe('docs API', function() {
