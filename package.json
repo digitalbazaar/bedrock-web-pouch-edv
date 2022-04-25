@@ -8,17 +8,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digitalbazaar/edv-client": "^14.0.0",
-    "base58-universal": "^1.0.0",
+    "@digitalbazaar/edv-client": "^15.0.0",
+    "base58-universal": "^2.0.0",
     "pouchdb": "^7.3.0",
     "pouchdb-adapter-indexeddb": "^7.3.0",
     "pouchdb-find": "^7.3.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-digitalbazaar": "^2.8.0",
-    "eslint-plugin-jsdoc": "^37.9.7",
+    "eslint": "^8.15.0",
+    "eslint-config-digitalbazaar": "^3.0.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
     "jsdoc-to-markdown": "^7.1.1",
     "pouchdb-debug": "^7.2.1"
   },
