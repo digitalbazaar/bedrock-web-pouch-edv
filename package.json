@@ -3,7 +3,7 @@
   "version": "6.0.2-0",
   "type": "module",
   "description": "PouchDB EDV Storage",
-  "module": "./lib/index.js",
+  "exports": "./lib/index.js",
   "scripts": {
     "lint": "eslint ."
   },

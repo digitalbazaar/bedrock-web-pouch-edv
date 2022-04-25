@@ -1,5 +1,10 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 7.0.0 - 2022-xx-xx
+
+### Changed
+- **BREAKING**: Use `exports` instead of `module`.
+
 ## 6.0.1 - 2022-05-30
 
 ### Fixed
