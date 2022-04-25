@@ -7,8 +7,8 @@
     "test": "node --preserve-symlinks test.js test --framework karma",
     "test-karma": "node --preserve-symlinks test.js test --framework karma",
     "debug": "node --preserve-symlinks test.js test --framework karma --log-level debug",
-    "coverage": "node --preserve-symlinks test.js test --framework karma --config ./node_modules/@bedrock/karma/lib/coverageConfig.js",
-    "coverage-ci": "node --preserve-symlinks test.js test --framework karma --config ./node_modules/@bedrock/karma/lib/coverageConfig.js"
+    "coverage": "node --preserve-symlinks test.js test --framework karma-coverage",
+    "coverage-ci": "node --preserve-symlinks test.js test --framework karma-coverage-ci"
   },
   "dependencies": {
     "@bedrock/core": "^6.0.1",
