@@ -8,8 +8,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digitalbazaar/edv-client": "^13.0.0",
-    "base58-universal": "^1.0.0",
+    "@digitalbazaar/edv-client": "github:digitalbazaar/edv-client#convert-to-module",
+    "base58-universal": "github:digitalbazaar/base58-universal#fix-esm",
     "pouchdb": "^7.3.0",
     "pouchdb-find": "^7.3.0",
     "uuid": "^8.3.2"
