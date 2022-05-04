@@ -1,5 +1,11 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 4.1.0 - 2022-05-xx
+
+### Changed
+- Improve pouchdb index performance by marking deleted EDV doc
+  records with `_deleted` flag.
+
 ## 4.0.0 - 2022-04-05
 
 ### Changed
