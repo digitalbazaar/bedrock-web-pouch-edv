@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 5.0.0 - 2022-05-xx
+## 5.0.0 - 2022-05-05
 
 ### Changed
 - **BREAKING**: Use `@digitalbazaar/edv-client@14` with new blind
