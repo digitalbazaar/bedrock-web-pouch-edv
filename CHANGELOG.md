@@ -1,5 +1,11 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 5.0.0 - 2022-05-xx
+
+### Changed
+- **BREAKING**: Use `@digitalbazaar/edv-client@14` with new blind
+  attributes version.
+
 ## 4.1.0 - 2022-05-03
 
 ### Changed
