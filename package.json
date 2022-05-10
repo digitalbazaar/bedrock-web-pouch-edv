@@ -3,7 +3,11 @@
   "version": "5.0.1-0",
   "type": "module",
   "description": "PouchDB EDV Storage",
+  "type": "module",
   "exports": "./lib/index.js",
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "lint": "eslint ."
   },
@@ -25,9 +29,6 @@
   "engines": {
     "node": ">=14"
   },
-  "files": [
-    "lib/*"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/bedrock-web-pouch-edv"
