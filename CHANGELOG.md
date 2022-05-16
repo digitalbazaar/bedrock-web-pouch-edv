@@ -1,5 +1,12 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 6.0.0 - 2022-xx-xx
+
+### Changed
+- **BREAKING**: Use `exports` instead of `module`.
+- Update dependencies.
+- Lint module.
+
 ## 5.0.0 - 2022-05-05
 
 ### Changed

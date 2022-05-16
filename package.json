@@ -3,30 +3,32 @@
   "version": "5.0.1-0",
   "type": "module",
   "description": "PouchDB EDV Storage",
-  "module": "./lib/index.js",
+  "type": "module",
+  "exports": "./lib/index.js",
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digitalbazaar/edv-client": "^14.0.0",
-    "base58-universal": "^1.0.0",
-    "pouchdb": "^7.2.2",
-    "pouchdb-find": "^7.2.2",
+    "@digitalbazaar/edv-client": "github:digitalbazaar/edv-client#convert-to-module",
+    "base58-universal": "github:digitalbazaar/base58-universal#fix-esm",
+    "pouchdb": "^7.3.0",
+    "pouchdb-find": "^7.3.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-digitalbazaar": "^2.8.0",
-    "eslint-plugin-jsdoc": "^37.9.7",
+    "eslint": "^8.15.0",
+    "eslint-config-digitalbazaar": "^3.0.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "eslint-plugin-unicorn": "^42.0.0",
     "jsdoc-to-markdown": "^7.1.1",
     "pouchdb-debug": "^7.2.1"
   },
   "engines": {
     "node": ">=14"
   },
-  "files": [
-    "lib/*"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/bedrock-web-pouch-edv"
