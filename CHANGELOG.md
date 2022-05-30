@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 6.0.0 - 2022-05-xx
+## 6.0.0 - 2022-05-30
 
 ### Changed
 - **BREAKING**: Use `indexeddb` adapter instead of `idb` adapter. This version
