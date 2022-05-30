@@ -1,5 +1,14 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 6.0.0 - 2022-05-xx
+
+### Changed
+- **BREAKING**: Use `indexeddb` adapter instead of `idb` adapter. This version
+  will also impose a `br_edv_` (bedrock EDV) prefix on database names,
+  causing all new databases to be created, leaving old ones alone. There is
+  no migration code available to convert an old database to a new one in this
+  version.
+
 ## 5.0.0 - 2022-05-05
 
 ### Changed
