@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 6.0.1 - 2022-05-xx
+## 6.0.1 - 2022-05-30
 
 ### Fixed
 - Add purge operation to clean up deleted docs to prevent premature storage
