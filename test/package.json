@@ -11,9 +11,10 @@
     "coverage-ci": "node --preserve-symlinks test.js test --framework karma --config ./node_modules/@bedrock/karma/lib/coverageConfig.js"
   },
   "dependencies": {
-    "@bedrock/core": "^5.0.0",
-    "@bedrock/karma": "^3.1.0",
-    "@bedrock/test": "^7.0.0",
-    "@bedrock/web-pouch-edv": "file:.."
+    "@bedrock/core": "^6.0.1",
+    "@bedrock/karma": "^5.1.0",
+    "@bedrock/test": "^8.0.5",
+    "@bedrock/web-pouch-edv": "file:..",
+    "events": "^3.3.0"
   }
 }
