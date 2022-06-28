@@ -6,7 +6,7 @@
   "type": "module",
   "exports": "./lib/index.js",
   "files": [
-    "lib/*"
+    "lib/**/*.js"
   ],
   "scripts": {
     "lint": "eslint ."
