@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
-import {secrets, generateLocalId, initialize} from '@bedrock/web-pouch-edv';
+import {generateLocalId, initialize, secrets} from '@bedrock/web-pouch-edv';
 
 describe('secrets API', function() {
   before(async () => {
