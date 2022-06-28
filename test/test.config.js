@@ -8,8 +8,6 @@ const require = createRequire(import.meta.url);
 
 config.karma.suites['bedrock-web-pouch-edv'] = path.join('web', '**', '*.js');
 
-// disable babel preprocessing during karma tests to avoid
-// errors with dated bedrock-karma and features like spread operator
 config.karma.config.webpack.resolve.fallback.events =
   require.resolve('events/');
 
