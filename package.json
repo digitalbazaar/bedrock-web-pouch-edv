@@ -19,11 +19,11 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^8.18.0",
-    "eslint-config-digitalbazaar": "^4.0.1",
-    "eslint-plugin-jsdoc": "^39.3.3",
-    "eslint-plugin-unicorn": "^42.0.0",
-    "jsdoc-to-markdown": "^7.1.1",
+    "eslint": "^8.51.0",
+    "eslint-config-digitalbazaar": "^5.0.1",
+    "eslint-plugin-jsdoc": "^46.8.2",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "jsdoc-to-markdown": "^8.0.0",
     "pouchdb-debug": "^7.2.1"
   },
   "engines": {
