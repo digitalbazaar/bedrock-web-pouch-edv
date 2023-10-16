@@ -4,6 +4,8 @@
 
 ### Changed
 - **BREAKING**: Drop support for Node.js < 18.
+- Use `@digitalbazaar/edv-client@16.0` that drops support for Node.js < 18 and
+  uses `@digitalbazaar/http-client@4` and `canonicalize@2`.
 
 ## 7.0.0 - 2022-08-19
 
