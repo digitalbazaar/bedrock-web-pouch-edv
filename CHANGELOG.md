@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 8.0.0 - 2023-TBD
+## 8.0.0 - 2023-10-16
 
 ### Changed
 - **BREAKING**: Drop support for Node.js < 18.
