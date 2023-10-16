@@ -12,10 +12,9 @@
   },
   "dependencies": {
     "@bedrock/core": "^6.0.1",
-    "@bedrock/karma": "^6.0.0",
+    "@bedrock/karma": "^6.1.0",
     "@bedrock/test": "^8.0.5",
     "@bedrock/web-pouch-edv": "file:..",
-    "@vue/compiler-sfc": "^3.3.4",
     "events": "^3.3.0"
   }
 }
