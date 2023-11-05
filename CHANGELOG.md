@@ -1,5 +1,12 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 8.1.0 - 2023-11-dd
+
+### Added
+- Add new `cipherVersion` parameter to control whether the cipher version
+  is "recommended" or "fips". The default (and previous only option)
+  remains "recommended".
+
 ## 8.0.0 - 2023-10-16
 
 ### Changed
