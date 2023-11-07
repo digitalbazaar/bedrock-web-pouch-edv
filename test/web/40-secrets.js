@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2022-2023 Digital Bazaar, Inc. All rights reserved.
  */
 import {generateLocalId, initialize, secrets} from '@bedrock/web-pouch-edv';
 
@@ -54,6 +54,20 @@ describe('secrets API', function() {
         ['id', 'hmacId', 'keyAgreementKeyId', 'secret', 'sequence']);
       should.exist(result.config.secret);
       result.config.secret.should.have.keys(['version', 'salt', 'wrappedKey']);
+    });
+    it('should pass using "fips" cipher version', async () => {
+      const result = await secrets.generate({
+        id: await generateLocalId(), password: 'pw', cipherVersion: 'fips'
+      });
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['hmac', 'keyAgreementKey', 'config']);
+      should.exist(result.config);
+      result.config.should.have.keys(
+        ['id', 'hmacId', 'keyAgreementKeyId', 'secret', 'sequence']);
+      should.exist(result.config.secret);
+      result.config.secret.should.have.keys(
+        ['version', 'salt', 'wrappedKey', 'wrappedKeyAgreementKey']);
     });
   });
 
@@ -140,7 +154,19 @@ describe('secrets API', function() {
       const result = await secrets.decrypt({config, password});
       should.exist(result);
       result.should.be.an('object');
-      result.should.have.keys(['hmac', 'keyAgreementKey']);
+      result.should.have.keys(['hmac', 'keyAgreementKey', 'cipherVersion']);
+      result.cipherVersion.should.equal('recommended');
+    });
+    it('should pass using "fips" cipher version', async () => {
+      const password = 'pw';
+      const {config} = await secrets.generate({
+        id: await generateLocalId(), password, cipherVersion: 'fips'
+      });
+      const result = await secrets.decrypt({config, password});
+      should.exist(result);
+      result.should.be.an('object');
+      result.should.have.keys(['hmac', 'keyAgreementKey', 'cipherVersion']);
+      result.cipherVersion.should.equal('fips');
     });
   });
 
