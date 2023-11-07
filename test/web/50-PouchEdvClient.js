@@ -6,9 +6,7 @@ import {
 } from '@bedrock/web-pouch-edv';
 import {mock} from './mock.js';
 
-//const cipherVersions = ['recommended', 'fips'];
-//const cipherVersions = ['fips'];
-const cipherVersions = ['recommended'];
+const cipherVersions = ['recommended', 'fips'];
 
 describe('PouchEdvClient API', function() {
   before(async () => {
