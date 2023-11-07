@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 8.1.0 - 2023-11-dd
+## 8.1.0 - 2023-11-07
 
 ### Added
 - Add new `cipherVersion` parameter to control whether the cipher version
