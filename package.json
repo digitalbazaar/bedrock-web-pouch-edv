@@ -16,19 +16,17 @@
     "base58-universal": "^2.0.0",
     "pouchdb": "^9.0.0",
     "pouchdb-adapter-indexeddb": "^9.0.0",
-    "pouchdb-find": "^9.0.0",
-    "uuid": "^8.3.2"
+    "pouchdb-find": "^9.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.51.0",
-    "eslint-config-digitalbazaar": "^5.0.1",
-    "eslint-plugin-jsdoc": "^46.8.2",
-    "eslint-plugin-unicorn": "^48.0.1",
-    "jsdoc-to-markdown": "^8.0.0",
+    "eslint": "^8.57.1",
+    "eslint-config-digitalbazaar": "^5.2.0",
+    "eslint-plugin-jsdoc": "^51.4.1",
+    "eslint-plugin-unicorn": "^56.0.1",
     "pouchdb-debug": "^7.2.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "repository": {
     "type": "git",
