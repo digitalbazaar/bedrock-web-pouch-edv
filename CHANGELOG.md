@@ -1,5 +1,21 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 8.2.0 - 2025-mm-dd
+
+### Changed
+- Update dependencies:
+  - `@digitalbazaar/ecdsa-multikey@1.8`
+  - `pouchdb@9`
+  - `pouchdb-adapter-indexeddb@9`
+  - `pouchdb-find@9`
+  - dev deps and removal of `uuid`.
+- Note: While pouchdb* packages have been bumped by two major versions, no
+  significant breaking changes are expected. The changes included internal
+  ES5 => ES6+ API changes that were not relevant here and a new default
+  limit on `find()` queries of `25`, but every `find()` query is already
+  expected to have provided a default or a default is provided by this
+  library.
+
 ## 8.1.0 - 2023-11-07
 
 ### Added
