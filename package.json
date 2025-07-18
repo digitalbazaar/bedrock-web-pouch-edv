@@ -14,9 +14,9 @@
     "@digitalbazaar/ecdsa-multikey": "^1.6.0",
     "@digitalbazaar/edv-client": "^16.1.0",
     "base58-universal": "^2.0.0",
-    "pouchdb": "^7.3.0",
-    "pouchdb-adapter-indexeddb": "^7.3.0",
-    "pouchdb-find": "^7.3.0",
+    "pouchdb": "^8.0.1",
+    "pouchdb-adapter-indexeddb": "^8.0.1",
+    "pouchdb-find": "^8.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
