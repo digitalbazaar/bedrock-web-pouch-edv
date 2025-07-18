@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 8.2.0 - 2025-mm-dd
+## 8.2.0 - 2025-07-18
 
 ### Changed
 - Update dependencies:
