@@ -1,5 +1,25 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 8.3.0 - 2026-07-dd
+
+### Added
+- Add `setAdapter()` and `getAdapter()` to configure the PouchDB adapter used
+  by databases created without an explicit `adapter` option. This allows hosts
+  with no IndexedDB implementation (e.g. React Native, using
+  `pouchdb-adapter-react-native-sqlite`) to reuse this library. Encryption
+  occurs above this layer, so the adapter only ever sees ciphertext and the
+  security model is unaffected by the choice of adapter.
+
+### Changed
+- `purge()` now falls back to PouchDB's `compact()` when a non-`indexeddb`
+  adapter is configured, since the existing implementation reaches past PouchDB
+  into IndexedDB directly. The `indexeddb` code path is unchanged. The fallback
+  reports `{deleted: 0}` because `compact()` does not return a count.
+
+### Notes
+- Default behavior is unchanged: the adapter still defaults to `indexeddb`, so
+  existing browser consumers are unaffected.
+
 ## 8.2.1 - 2026-07-27
 
 ### Fixed
