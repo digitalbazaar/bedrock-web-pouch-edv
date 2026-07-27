@@ -1,5 +1,14 @@
 # bedrock-web-pouch-edv ChangeLog
 
+## 8.2.1 - 2026-07-dd
+
+### Fixed
+- Declare `tweetnacl` as a dependency. `lib/X25519Kak.js` imports it directly,
+  but it was never listed in `package.json` and was previously satisfied
+  transitively. It is no longer reachable that way, so a clean install fails to
+  resolve it and the karma suite reports `Cannot find module 'tweetnacl'` before
+  any test runs.
+
 ## 8.2.0 - 2025-07-18
 
 ### Changed
