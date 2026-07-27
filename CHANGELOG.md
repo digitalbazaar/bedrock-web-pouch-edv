@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 8.2.1 - 2026-07-dd
+## 8.2.1 - 2026-07-27
 
 ### Fixed
 - Declare `tweetnacl` as a dependency. `lib/X25519Kak.js` imports it directly,
