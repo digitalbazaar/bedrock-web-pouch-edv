@@ -1,6 +1,6 @@
 # bedrock-web-pouch-edv ChangeLog
 
-## 8.3.0 - 2026-07-dd
+## 8.3.0 - 2026-07-28
 
 ### Added
 - Add `setAdapter()` and `getAdapter()` to configure the PouchDB adapter used
